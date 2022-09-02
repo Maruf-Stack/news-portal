@@ -44,15 +44,18 @@ const catagoriesDetails = categorys => {
         div.classList.add("align-items-center");
         div.classList.add("justify-content-center");
         div.innerHTML = `
-    <div class="col-md-4 col-sm-12 h-auto">
+    <div class="col-md-4 col-sm-12 h-100">
     <img src="${category.image_url}" class="img-fluid w-100 rounded-start" alt="...">
     </div>
-    <div class="col-md-8 col-sm-12">
+    <div class="col-md-8 col-sm-12 p-5">
         <h2>${category.title}</h2>
         <p class="mb-2">${category.details}</P>
+        <div class="d-flex justify-content-between align-items-center">
         <div>
-        <img src="${category.author.img}" class="img-fluid rounded author">
-        <span>${category.author.name}</span>
+        <img src="${category.author.img}" class="img-fluid author rounded-circle">
+        <span class="author-name">${category.author.name}</span></div>
+        <span class="view ">${category.rating.total_view}</span>
+        <button class="btn btn-primary px-3 py-2 fs-6 fw-semibold">Show details</button>
         </div>
     </div>
     `;

@@ -21,3 +21,12 @@
 .nav-item {
     color: rgba(0, 0, 0, 0.527);
 }
+
+.author-name {
+    font-size: 20px;
+}
+
+.author {
+    width: 70px;
+    height: 70px;
+}
