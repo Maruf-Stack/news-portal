@@ -38,16 +38,22 @@ const catagoriesDetails = categorys => {
     categorys.forEach(category => {
         const div = document.createElement('div');
         div.classList.add("row");
-        div.classList.add("mb-4");
+        div.classList.add("mb-5");
         div.classList.add("shadow");
         div.classList.add("d-flex");
         div.classList.add("align-items-center");
+        div.classList.add("justify-content-center");
         div.innerHTML = `
-    <div class="col-md-4 col-sm-12">
-    <img src="${category.image_url}" class="img-fluid rounded-start" alt="...">
+    <div class="col-md-4 col-sm-12 h-auto">
+    <img src="${category.image_url}" class="img-fluid w-100 rounded-start" alt="...">
     </div>
     <div class="col-md-8 col-sm-12">
-        <h2>hellow</h2>
+        <h2>${category.title}</h2>
+        <p class="mb-2">${category.details}</P>
+        <div>
+        <img src="${category.author.img}" class="img-fluid rounded author">
+        <span>${category.author.name}</span>
+        </div>
     </div>
     `;
         catagoriesDetails.appendChild(div)
