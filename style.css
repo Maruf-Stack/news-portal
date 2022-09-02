@@ -12,3 +12,12 @@
 .logo-name {
     background-color: rgba(10, 145, 255, 0.705);
 }
+
+.name {
+    color: rgb(85, 24, 165);
+}
+
+/* navbar  */
+.nav-item {
+    color: rgba(0, 0, 0, 0.527);
+}
