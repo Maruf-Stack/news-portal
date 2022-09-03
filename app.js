@@ -8,20 +8,19 @@ const loadData = async () => {
 const setNavbar = async () => {
     const data = await loadData();
     const catagories = data.data.news_category;
-    const catagoryContainer = document.getElementById('catagory');
+    const catagoryContainer = document.getElementById('navbarNav');
 
     catagories.forEach(catagory => {
-        const div = document.createElement('div');
-        div.classList.add('collapse');
-        div.classList.add('navbar-collapse');
-        div.innerHTML = `  
-        <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link fs-5 fw-semibold" href="#" onclick="loadCatagoriesData(${catagory.category_id})">${catagory.category_name}</a>
-        </li> 
-        </ul>
-        `;
-        catagoryContainer.appendChild(div);
+        const ul = document.createElement('ul');
+        ul.classList.add('navbar-nav');
+        ul.innerHTML = `
+          <li class="nav-item">
+
+                                    <a class="nav-link fs-5 fw-semibold" href="#"
+                                        onclick="loadCatagoriesData(${catagory.category_id});onclick=loadSpinner(${true})">${catagory.category_name}</a>
+                                </li>
+          `;
+        catagoryContainer.appendChild(ul);
     })
 }
 // show news on click 
@@ -54,7 +53,7 @@ const catagoriesDetails = categorys => {
         <div>
         <img src="${category.author.img}" class="img-fluid author rounded-circle">
         <span class="author-name">${category.author.name}</span></div>
-        <span class="view fw-semibold fs-5"><i class="fa-regular fa-eye fs-6 fw-bold"></i> ${category.total_view}</span>
+        <span class="view fs-5"><i class="fa-regular fa-eye fs-6 fw-semibold me-2"></i> ${category.total_view}</span>
         <button type="button" id="modal-button" class="btn btn-primary px-4 py-2 border-0"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalData('${category._id}')">
         Show details
     </button>
@@ -63,6 +62,8 @@ const catagoriesDetails = categorys => {
     `;
         catagoriesDetails.appendChild(div)
     })
+    loadSpinner(false);
+
 }
 // modal 
 const modalData = modalId => {
@@ -92,7 +93,7 @@ const modalShow = modals => {
         <span class="fw-bold fs-5 text-dark" id="author">${modal.author.name === null ? 'author name not found' : modal.author.name}</span>
         
         </div>
-        <span class="view fw-semibold fs-5"><i class="fa-regular fa-eye fs-6 fw-bold"></i> ${modal.total_view === 0 ? 'no view yet' : modal.total_view}</span>
+        <span class="view fw-semibold fs-5"><i class="fa-regular fa-eye fs-6 fw-bold"></i> ${modal.total_view === 0 || 'null' ? 'no view yet' : modal.total_view}</span>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -105,6 +106,14 @@ const modalShow = modals => {
     })
 
 }
-
-setNavbar()
-loadData()
+// spinner 
+const loadSpinner = loading => {
+    const loadingspinner = document.getElementById('spinner');
+    if (loading) {
+        loadingspinner.classList.remove('d-none');
+    } else {
+        loadingspinner.classList.add('d-none')
+    }
+}
+setNavbar();
+loadData();
