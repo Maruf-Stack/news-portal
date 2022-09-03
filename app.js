@@ -12,16 +12,15 @@ const loadData = async () => {
 const setNavbar = async () => {
     const data = await loadData();
     const catagories = data.data.news_category;
-    const catagoryContainer = document.getElementById('navbarNav');
+    const catagoryContainer = document.getElementById('catagory');
+    const home = document.createElement('p');
+    home.classList.add
     catagories.forEach(catagory => {
         const ul = document.createElement('ul');
-        ul.classList.add("d-flex");
-        ul.classList.add("justify-content-between");
-        ul.classList.add("navbar-nav");
         ul.innerHTML = `
                 <li class="nav-item">
 
-                    <a class="nav-link fs-5 fw-semibold" href="#"
+                    <a class="nav-link fs-5 fw-semibold catagory" href="#"
                         onclick="loadCatagoriesData(${catagory.category_id})">${catagory.category_name}</a>
                 </li>
         `;
@@ -57,7 +56,7 @@ const catagoriesDetails = categorys => {
         <h2 class="text-dark fw-semibold">${category.title}</h2>
         <p class="mb-2">${category.details.length > 200 ? category.details.slice(0, 200) + ('...') : category.details}</P>
         <div class="d-flex justify-content-between align-items-center">
-        <div>
+        <div class="info">
         <img src="${category.author.img}" class="img-fluid author rounded-circle">
         <span class="author-name">${category.author.name}</span></div>
         <span class="view fs-5"><i class="fa-regular fa-eye fs-6 fw-semibold me-2"></i> ${category.total_view}</span>
@@ -116,7 +115,7 @@ const modalShow = modals => {
 
 }
 // load spinner 
-document.getElementById('navbarNav').addEventListener('click', function () {
+document.getElementById('catagory').addEventListener('click', function () {
     loadSpinner(true);
 })
 

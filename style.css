@@ -20,6 +20,7 @@
 /* navbar  */
 .nav-item {
     color: rgba(0, 0, 0, 0.527);
+    list-style-type: none;
 }
 
 
@@ -44,4 +45,32 @@
 .modal-author {
     width: 70px;
     height: 70px;
+}
+
+/* responsive  */
+@media only screen and (max-width: 600px) {
+    #catagory {
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(71, 147, 245);
+        font-size: 20px;
+        color: aliceblue;
+        border-radius: 10px;
+    }
+
+    a.catagory {
+        color: whitesmoke;
+    }
+
+    div.info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        display: flex;
+        flex-direction: column;
+        display: grid;
+        gap: 10px;
+    }
 }
