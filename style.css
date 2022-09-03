@@ -38,5 +38,10 @@
 }
 
 .nav-link:active {
-    background-color: red;
+    background-color: rgb(57, 119, 252);
+}
+
+.modal-author {
+    width: 70px;
+    height: 70px;
 }
