@@ -1,25 +1,41 @@
 const loadData = async () => {
     const res = await fetch("https://openapi.programming-hero.com/api/news/categories");
-    const data = await res.json();
+    try {
+        const data = await res.json();
 
-    return data;
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
 }
 // display navbar 
 const setNavbar = async () => {
     const data = await loadData();
     const catagories = data.data.news_category;
     const catagoryContainer = document.getElementById('navbarNav');
-
+    const ul = document.createElement('ul');
+    ul.classList.add("nav-item");
+    ul.classList.add("d-flex");
+    ul.classList.add("align-items-center");
+    ul.innerHTML = `
+    <li>
+                    <a class="nav-link fs-5 fw-semibold" href="#">Home</a>
+                </li>
+    `;
+    catagoryContainer.appendChild(ul);
     catagories.forEach(catagory => {
-        const ul = document.createElement('ul');
-        ul.classList.add('navbar-nav');
-        ul.innerHTML = `
-          <li class="nav-item">
 
-                                    <a class="nav-link fs-5 fw-semibold" href="#"
-                                        onclick="loadCatagoriesData(${catagory.category_id});onclick=loadSpinner(${true})">${catagory.category_name}</a>
-                                </li>
-          `;
+        const ul = document.createElement('ul');
+        ul.classList.add("d-flex");
+        ul.classList.add("justify-content-between");
+        ul.classList.add("navbar-nav");
+        ul.innerHTML = `
+                <li class="nav-item">
+
+                    <a class="nav-link fs-5 fw-semibold" href="#"
+                        onclick="loadCatagoriesData(${catagory.category_id})">${catagory.category_name}</a>
+                </li>
+        `;
         catagoryContainer.appendChild(ul);
     })
 }
@@ -28,7 +44,9 @@ const loadCatagoriesData = (code) => {
     const url = `https://openapi.programming-hero.com/api/news/category/0${code}`;
     fetch(url)
         .then(res => res.json())
-        .then(data => catagoriesDetails(data.data));
+        .then(data => catagoriesDetails(data.data))
+        .catch(error => console.log(error));
+
 
 }
 const catagoriesDetails = categorys => {
@@ -60,7 +78,8 @@ const catagoriesDetails = categorys => {
         </div>
     </div>
     `;
-        catagoriesDetails.appendChild(div)
+        catagoriesDetails.appendChild(div);
+
     })
     loadSpinner(false);
 
@@ -71,6 +90,7 @@ const modalData = modalId => {
     fetch(url)
         .then(res => res.json())
         .then(data => modalShow(data.data))
+        .catch(error => console.log(error));
 }
 
 const modalShow = modals => {
@@ -93,7 +113,7 @@ const modalShow = modals => {
         <span class="fw-bold fs-5 text-dark" id="author">${modal.author.name === null ? 'author name not found' : modal.author.name}</span>
         
         </div>
-        <span class="view fw-semibold fs-5"><i class="fa-regular fa-eye fs-6 fw-bold"></i> ${modal.total_view === 0 || 'null' ? 'no view yet' : modal.total_view}</span>
+        <span class="view fw-semibold fs-5"><i class="fa-regular fa-eye fs-6 fw-bold"></i> ${modal.total_view === null ? 'no view yet' : modal.total_view}</span>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -106,7 +126,11 @@ const modalShow = modals => {
     })
 
 }
-// spinner 
+// load spinner 
+document.getElementById('navbarNav').addEventListener('click', function () {
+    loadSpinner(true);
+})
+
 const loadSpinner = loading => {
     const loadingspinner = document.getElementById('spinner');
     if (loading) {
@@ -115,5 +139,14 @@ const loadSpinner = loading => {
         loadingspinner.classList.add('d-none')
     }
 }
+// found 
+
+const foundCategory = found => {
+    const foundNum = document.getElementById('found');
+    const foundNumString = foundNum.innerText;
+    const num = parseInt(foundNumString);
+
+}
+foundCategory()
 setNavbar();
 loadData();
