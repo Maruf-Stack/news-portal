@@ -13,8 +13,12 @@ const setNavbar = async () => {
     const data = await loadData();
     const catagories = data.data.news_category;
     const catagoryContainer = document.getElementById('catagory');
-    const home = document.createElement('p');
-    home.classList.add
+    const p = document.createElement('p');
+    p.classList.add("nav-item");
+    p.innerHTML = `
+    <a class="nav-link fs-5 fw-semibold catagory" href="#">Home</a>
+    `;
+    catagoryContainer.appendChild(p)
     catagories.forEach(catagory => {
         const ul = document.createElement('ul');
         ul.innerHTML = `
