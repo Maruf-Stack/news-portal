@@ -55,7 +55,7 @@ const catagoriesDetails = categorys => {
         <img src="${category.author.img}" class="img-fluid author rounded-circle">
         <span class="author-name">${category.author.name}</span></div>
         <span class="view fw-semibold fs-5"><i class="fa-regular fa-eye fs-6 fw-bold"></i> ${category.total_view}</span>
-        <button type="button" class="btn btn-primary px-4 py-2 border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" id="modal-button" class="btn btn-primary px-4 py-2 border-0"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalData('${category._id}')">
         Show details
     </button>
         </div>
@@ -65,8 +65,37 @@ const catagoriesDetails = categorys => {
     })
 }
 // modal 
-const modalShow = () => {
+const modalData = modalId => {
+    const url = `https://openapi.programming-hero.com/api/news/${modalId}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => modalShow(data.data))
+}
 
+const modalShow = modals => {
+    const modalConainer = document.getElementById('modal');
+    modals.forEach(modal => {
+        console.log(modal)
+        const div = document.createElement('div');
+        div.classList.add('modal-content')
+        div.innerHTML = `
+        <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <img src="${modal.image_url}">
+    <div class="modal-body">
+        <h4>${modal.title}</h4>
+        <div>
+        <img src="${modal.author.img}" class="modal-author">
+        <span>${modal.author.name}</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    `;
+        modalConainer.appendChild(div);
+    })
 }
 setNavbar()
 loadData()
