@@ -13,18 +13,7 @@ const setNavbar = async () => {
     const data = await loadData();
     const catagories = data.data.news_category;
     const catagoryContainer = document.getElementById('navbarNav');
-    const ul = document.createElement('ul');
-    ul.classList.add("nav-item");
-    ul.classList.add("d-flex");
-    ul.classList.add("align-items-center");
-    ul.innerHTML = `
-    <li>
-                    <a class="nav-link fs-5 fw-semibold" href="#">Home</a>
-                </li>
-    `;
-    catagoryContainer.appendChild(ul);
     catagories.forEach(catagory => {
-
         const ul = document.createElement('ul');
         ul.classList.add("d-flex");
         ul.classList.add("justify-content-between");
@@ -141,12 +130,12 @@ const loadSpinner = loading => {
 }
 // found 
 
-const foundCategory = found => {
-    const foundNum = document.getElementById('found');
-    const foundNumString = foundNum.innerText;
-    const num = parseInt(foundNumString);
+// const foundCategory = found => {
+//     const foundNum = document.getElementById('found');
+//     const foundNumString = foundNum.innerText;
+//     const num = parseInt(foundNumString);
 
-}
-foundCategory()
+// }
+// foundCategory()
 setNavbar();
 loadData();
